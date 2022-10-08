@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TestController {
 
-    private final TestCommit testCommit;
+    private final TestService testService;
 
     @PostConstruct
     public void test() {
-        testCommit.update();
+        testService.update();
     }
 }

@@ -11,21 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
-public class TestCommit implements UpdateSupport {
+public class TestService implements UpdateSupport {
 
-    private final JpaInterface jpaInterface;
+    private final GreenRepository greenRepository;
 
     @Transactional
     @PostConstruct
     public void insert() {
         GreenEntity entity = new GreenEntity(1L, "테스트삽입", 4L);
-        jpaInterface.save(entity);
+        greenRepository.save(entity);
     }
 
 
     @Transactional
     public void update() {
-        GreenEntity entity = jpaInterface.findById(1L).get();
+        GreenEntity entity = greenRepository.findById(1L).get();
+        System.out.println("entity = " + entity);
         GreenUpdateDto dto = new GreenUpdateDto(1L, 999L, "변경된테스트");
         Object entity1 = updateObject(
             GreenUpdateDto.class, Optional.of(dto), Optional.of(entity)
