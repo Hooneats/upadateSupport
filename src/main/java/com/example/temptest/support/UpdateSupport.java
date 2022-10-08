@@ -9,6 +9,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author hooneats
+ */
 @Component
 public interface UpdateSupport {
 
