@@ -29,7 +29,7 @@ public class TestService implements UpdateSupport {
         System.out.println("entity = " + entity);
         final var dto = new GreenUpdateDto(1L, 999L, "변경된테스트");
         final var entity1 = updateObject(
-            GreenUpdateDto.class, Optional.of(dto), Optional.of(entity)
+             Optional.of(dto), Optional.of(entity)
         ).get();
         System.out.println("entity1 = " + entity1);
         System.out.println("getClass = " + entity1.getClass());
