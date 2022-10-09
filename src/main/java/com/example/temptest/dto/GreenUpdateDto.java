@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GreenUpdateDto {
 
-    @UpdateColumn(updateFieldName = "rankingSeq")
+    @UpdateColumn(name = "rankingSeq")
     private Long seq;
 
-    @UpdateColumn(updateFieldName = "greenCount")
+    @UpdateColumn(name = "greenCount")
     private Long count;
 
-    @UpdateColumn(updateFieldName = "nickName")
+    @UpdateColumn(name = "nickName")
     private String nickName;
 }
