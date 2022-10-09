@@ -18,8 +18,7 @@ public interface UpdateSupport {
         final Optional<?> resourceObject,
         final Optional<?> targetObject
     ) {
-        final var updateFieldValueMap = getUpdateMapper(
-            resourceObject);
+        final var updateFieldValueMap = getUpdateMapper(resourceObject);
         readMapAndUpdateObject(targetObject, updateFieldValueMap);
         return targetObject;
     }
