@@ -7,12 +7,10 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;
 
 /**
  * @author hooneats
  */
-@Component
 public interface UpdateSupport {
 
     default Optional<?> updateObject(
