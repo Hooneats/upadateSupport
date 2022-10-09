@@ -18,17 +18,17 @@ public class TestService implements UpdateSupport {
     @Transactional
     @PostConstruct
     public void insert() {
-        GreenEntity entity = new GreenEntity(1L, "테스트삽입", 4L);
+        final var entity = new GreenEntity(1L, "테스트삽입", 4L);
         greenRepository.save(entity);
     }
 
 
     @Transactional
     public void update() {
-        GreenEntity entity = greenRepository.findById(1L).get();
+        final var entity = greenRepository.findById(1L).get();
         System.out.println("entity = " + entity);
-        GreenUpdateDto dto = new GreenUpdateDto(1L, 999L, "변경된테스트");
-        Object entity1 = updateObject(
+        final var dto = new GreenUpdateDto(1L, 999L, "변경된테스트");
+        final var entity1 = updateObject(
             GreenUpdateDto.class, Optional.of(dto), Optional.of(entity)
         ).get();
         System.out.println("entity1 = " + entity1);
