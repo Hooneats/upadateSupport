@@ -49,7 +49,7 @@ public interface UpdateSupport {
                 field.setAccessible(true);
                 return Optional.ofNullable(field.get(resourceObject.get()));
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Could not access field");
             }
         };
     }
