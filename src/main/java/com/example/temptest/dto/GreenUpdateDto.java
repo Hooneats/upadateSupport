@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class GreenUpdateDto {
 
     @UpdateColumn(name = "rankingSeq")
-    private Long seq;
+    private Long greenSeq;
 
     @UpdateColumn(name = "greenCount")
-    private Long count;
+    private Long greenCount;
 
     @UpdateColumn(name = "nickName")
     private String nickName;
