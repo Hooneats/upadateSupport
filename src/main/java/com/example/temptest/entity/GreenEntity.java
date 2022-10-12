@@ -20,13 +20,14 @@ public class GreenEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ranking_seq", nullable = false)
+    @Column(name = "ranking_seq")
     private Long rankingSeq;
 
-    @Column(name = "nick_name", length = 50, nullable = false, unique = true)
+//    @Column(name = "nick_name", length = 50, nullable = false, unique = true)
+    @Column(name = "nick_name", length = 50)
     private String nickName;
 
-    @Column(name = "green_count", nullable = false)
+    @Column(name = "green_count")
     private Long greenCount;
 
 }

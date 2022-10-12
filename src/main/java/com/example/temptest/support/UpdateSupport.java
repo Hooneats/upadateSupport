@@ -14,20 +14,28 @@ import java.util.stream.Collectors;
  */
 public interface UpdateSupport {
 
-    default Optional<?> updateObject(
-        final Optional<?> resourceObject,
-        final Optional<?> targetObject
+    default Object updateObject(
+        final Object resourceObject,
+        final Optional<?> targetOptionalObject
     ) {
+        validateParameterIsNull(resourceObject, targetOptionalObject);
+        final var targetObject = targetOptionalObject.get();
+
         final var updateFieldValueMap = getUpdateMapper(resourceObject);
         readMapAndUpdateObject(targetObject, updateFieldValueMap);
         return targetObject;
     }
 
+    private void validateParameterIsNull(Object resourceObject, Optional<?> targetOptionalObject) {
+        if (Objects.isNull(resourceObject) || targetOptionalObject.isEmpty()) {
+            throw new RuntimeException("Could not update, because exist is null value");
+        }
+    }
+
     private Map<String, Optional<?>> getUpdateMapper(
-        final Optional<?> resourceObject) {
-        final var fields = resourceObject.orElseThrow(
-                () -> new RuntimeException("Could not update, because resourceObject is null"))
-            .getClass().getDeclaredFields();
+        final Object resourceObject) {
+        final var fields = resourceObject.getClass().getDeclaredFields();
+
         return Arrays.stream(fields)
             .collect(
                 Collectors.toMap(getEntityFieldName(), getResourceFieldValue(resourceObject)));
@@ -43,36 +51,33 @@ public interface UpdateSupport {
         };
     }
 
-    private Function<Field, Optional<?>> getResourceFieldValue(final Optional<?> resourceObject) {
+    private Function<Field, Optional<?>> getResourceFieldValue(final Object resourceObject) {
         return field -> {
             try {
                 field.setAccessible(true);
-                return Optional.ofNullable(field.get(resourceObject.get()));
+                return Optional.ofNullable(field.get(resourceObject));
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("Could not access field");
             }
         };
     }
 
-    private void readMapAndUpdateObject(final Optional<?> targetObject,
+    private void readMapAndUpdateObject(final Object targetObject,
         final Map<String, Optional<?>> updateFieldAndValueMap) {
         updateFieldAndValueMap.forEach(updateObjectField(targetObject));
     }
 
     private BiConsumer<String, Optional<?>> updateObjectField(
-        final Optional<?> targetObject) {
-        final var obj =
-            targetObject.orElseThrow(
-                () -> new RuntimeException("Could not update, because targetObject is null"));
+        final Object targetObject) {
         return (key, value) -> {
             if (key.isBlank()) {
                 return;
             }
             value.ifPresent(v -> {
                 try {
-                    final var field = obj.getClass().getDeclaredField(key);
+                    final var field = targetObject.getClass().getDeclaredField(key);
                     field.setAccessible(true);
-                    field.set(obj, v);
+                    field.set(targetObject, v);
                 } catch (Exception e) {
                     throw new RuntimeException(
                         "Could not update, maybe problem is updateColumn name");
