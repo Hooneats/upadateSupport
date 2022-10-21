@@ -31,15 +31,19 @@ public class TestService implements UpdateSupport {
         final var entity1 = greenRepository.findById(1L);
         final var entity2 = greenRepository.findById(2L);
         System.out.println("entity1 = " + entity1);
-        final var dto1 = new GreenUpdateDto(1L, 999L, "변경된테스트");
-        final var dto2 = new GreenUpdateDto(2L, 999L, "변경된테스트");
+        final var dto1 = new GreenEntity(1L, "변경된테스트",  4L);
+        final var dto2 = new GreenEntity(2L, "변경된테스트",  999L);
 
-        updateObject(
-            dto1, entity1
-        );
-        updateObject(
-            dto2, entity2
-        );
+//        entity1.get().setNickName("변경쿼리날리나요?");
+//
+        entity1.get().changeValues(dto1);
+        entity2.get().changeValues(dto2);
+//        updateObject(
+//            dto1, entity1
+//        );
+//        updateObject(
+//            dto2, entity2
+//        );
         System.out.println("entity1 = " + entity1);
         System.out.println("getClass = " + entity1.getClass());
     }

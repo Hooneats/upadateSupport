@@ -1,5 +1,6 @@
 package com.example.temptest.entity;
 
+import com.example.temptest.support.ChangeObject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,14 +10,18 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 
+@Setter
 @ToString
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicUpdate
 @Entity(name = "green")
-public class GreenEntity {
+public class GreenEntity implements ChangeObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
